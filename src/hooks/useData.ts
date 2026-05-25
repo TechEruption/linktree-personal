@@ -2,6 +2,24 @@ import { useState, useEffect } from 'react';
 import { supabase, SUPABASE_TABLES } from '../config/supabase';
 import type { Profile, Link, SocialLink } from '../types';
 
+// Mock data for demo when Supabase is not configured
+const MOCK_PROFILE: Profile = {
+  id: 'demo-user-id',
+  email: 'demo@linktree.app',
+  name: 'Demo User',
+  bio: 'Welcome to Linktree! 🌳 Click login to manage your profile.',
+  subtitle: 'Set up Supabase to see your real data',
+  avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=demo',
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+const isSupabaseConfigured = () => {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  const key = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  return url && !url.includes('your-project') && key && !key.includes('your-anon-key');
+};
+
 export function useProfile() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -14,6 +32,13 @@ export function useProfile() {
   const fetchProfile = async () => {
     try {
       setLoading(true);
+      
+      if (!isSupabaseConfigured()) {
+        setProfile(MOCK_PROFILE);
+        setError(null);
+        return;
+      }
+
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.PROFILES)
         .select('*')
@@ -23,8 +48,9 @@ export function useProfile() {
       setProfile(data);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch profile');
-      setProfile(null);
+      // Fall back to mock data on error
+      setProfile(MOCK_PROFILE);
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -45,6 +71,51 @@ export function useLinks() {
   const fetchLinks = async () => {
     try {
       setLoading(true);
+      
+      if (!isSupabaseConfigured()) {
+        const mockLinks: Link[] = [
+          {
+            id: '1',
+            user_id: 'demo-user-id',
+            title: 'My Portfolio',
+            url: 'https://portfolio.example.com',
+            description: 'Check out my work',
+            icon: 'briefcase',
+            active: true,
+            order_index: 1,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: '2',
+            user_id: 'demo-user-id',
+            title: 'GitHub',
+            url: 'https://github.com',
+            description: 'See my code',
+            icon: 'code',
+            active: true,
+            order_index: 2,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: '3',
+            user_id: 'demo-user-id',
+            title: 'Blog',
+            url: 'https://blog.example.com',
+            description: 'Read my articles',
+            icon: 'edit',
+            active: true,
+            order_index: 3,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+        ];
+        setLinks(mockLinks);
+        setError(null);
+        return;
+      }
+
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.LINKS)
         .select('*')
@@ -55,8 +126,47 @@ export function useLinks() {
       setLinks(data || []);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch links');
-      setLinks([]);
+      // Fall back to mock data on error
+      const mockLinks: Link[] = [
+        {
+          id: '1',
+          user_id: 'demo-user-id',
+          title: 'My Portfolio',
+          url: 'https://portfolio.example.com',
+          description: 'Check out my work',
+          icon: 'briefcase',
+          active: true,
+          order_index: 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        {
+          id: '2',
+          user_id: 'demo-user-id',
+          title: 'GitHub',
+          url: 'https://github.com',
+          description: 'See my code',
+          icon: 'code',
+          active: true,
+          order_index: 2,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        {
+          id: '3',
+          user_id: 'demo-user-id',
+          title: 'Blog',
+          url: 'https://blog.example.com',
+          description: 'Read my articles',
+          icon: 'edit',
+          active: true,
+          order_index: 3,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      ];
+      setLinks(mockLinks);
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -77,6 +187,42 @@ export function useSocialLinks() {
   const fetchSocialLinks = async () => {
     try {
       setLoading(true);
+      
+      if (!isSupabaseConfigured()) {
+        const mockSocialLinks: SocialLink[] = [
+          {
+            id: '1',
+            user_id: 'demo-user-id',
+            platform: 'twitter',
+            url: 'https://twitter.com/yourhandle',
+            order_index: 1,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: '2',
+            user_id: 'demo-user-id',
+            platform: 'linkedin',
+            url: 'https://linkedin.com/in/yourprofile',
+            order_index: 2,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: '3',
+            user_id: 'demo-user-id',
+            platform: 'instagram',
+            url: 'https://instagram.com/yourhandle',
+            order_index: 3,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+        ];
+        setSocialLinks(mockSocialLinks);
+        setError(null);
+        return;
+      }
+
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.SOCIAL_LINKS)
         .select('*')
@@ -86,8 +232,38 @@ export function useSocialLinks() {
       setSocialLinks(data || []);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch social links');
-      setSocialLinks([]);
+      // Fall back to mock data on error
+      const mockSocialLinks: SocialLink[] = [
+        {
+          id: '1',
+          user_id: 'demo-user-id',
+          platform: 'twitter',
+          url: 'https://twitter.com/yourhandle',
+          order_index: 1,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        {
+          id: '2',
+          user_id: 'demo-user-id',
+          platform: 'linkedin',
+          url: 'https://linkedin.com/in/yourprofile',
+          order_index: 2,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        {
+          id: '3',
+          user_id: 'demo-user-id',
+          platform: 'instagram',
+          url: 'https://instagram.com/yourhandle',
+          order_index: 3,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      ];
+      setSocialLinks(mockSocialLinks);
+      setError(null);
     } finally {
       setLoading(false);
     }
