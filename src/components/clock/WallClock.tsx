@@ -46,27 +46,27 @@ export function WallClock() {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, type: 'spring' }}
-      className="fixed bottom-8 right-8 lg:bottom-12 lg:right-12 z-50"
+      className="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-50"
     >
-      <div className="relative w-40 h-40 lg:w-48 lg:h-48">
-        {/* Outer glow */}
+      <div className="relative w-40 h-40 lg:w-56 lg:h-56">
+        {/* Outer neon glow */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full blur-2xl"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 3, repeat: Infinity }}
+          className="absolute inset-0 bg-gradient-to-br from-cosmic-neon/40 to-cosmic-accent/30 rounded-full blur-3xl"
+          animate={{ opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 4, repeat: Infinity }}
         />
 
-        {/* Main clock container */}
-        <div className="relative w-full h-full glass rounded-full flex items-center justify-center shadow-2xl border-2 border-blue-400/40">
-          {/* Analog clock background */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-900/20 to-blue-900/10">
+        {/* Main clock container - Glassmorphism */}
+        <div className="relative w-full h-full glass-dark rounded-full flex items-center justify-center shadow-neon-glow border-2 border-cosmic-neon/40 backdrop-blur-xl">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cosmic-accent/5 to-cosmic-glow/5 animate-pulse">
             {/* Clock markers */}
             {[...Array(12)].map((_, i) => (
               <div
                 key={i}
-                className="absolute w-0.5 h-2 bg-blue-400/60 left-1/2 origin-center"
+                className="absolute w-1 h-3 bg-cosmic-neon/60 left-1/2 origin-center rounded-full"
                 style={{
-                  transform: `translateX(-50%) translateY(-${180 - 8}px) rotate(${i * 30}deg)`,
+                  transform: `translateX(-50%) translateY(-${180 - 10}px) rotate(${i * 30}deg)`,
                 }}
               />
             ))}
@@ -76,7 +76,7 @@ export function WallClock() {
           <div className="absolute inset-0 rounded-full flex items-center justify-center">
             {/* Hour hand */}
             <motion.div
-              className="absolute w-1 h-12 bg-gradient-to-b from-blue-400 to-blue-300 rounded-full origin-bottom"
+              className="absolute w-1.5 h-14 bg-gradient-to-b from-cosmic-accent to-cosmic-neon rounded-full origin-bottom shadow-[0_0_10px_rgba(99,102,241,0.8)]"
               style={{ bottom: '50%' }}
               animate={{ rotate: hoursDegrees }}
               transition={{ type: 'tween', duration: 0.5 }}
@@ -84,28 +84,32 @@ export function WallClock() {
 
             {/* Minute hand */}
             <motion.div
-              className="absolute w-0.5 h-16 bg-gradient-to-b from-cyan-400 to-cyan-300 rounded-full origin-bottom"
+              className="absolute w-1 h-20 bg-gradient-to-b from-cosmic-neon to-cyan-400 rounded-full origin-bottom shadow-[0_0_12px_rgba(6,182,212,0.8)]"
               style={{ bottom: '50%' }}
               animate={{ rotate: minutesDegrees }}
               transition={{ type: 'tween', duration: 0.5 }}
             />
 
-            {/* Second hand */}
+            {/* Second hand - pulsing */}
             <motion.div
-              className="absolute w-0.5 h-14 bg-gradient-to-b from-red-400 to-red-300 rounded-full origin-bottom"
+              className="absolute w-0.5 h-16 bg-gradient-to-b from-cosmic-glow to-pink-500 rounded-full origin-bottom shadow-[0_0_8px_rgba(168,85,247,0.6)]"
               style={{ bottom: '50%' }}
-              animate={{ rotate: secondsDegrees }}
-              transition={{ type: 'tween', duration: 0 }}
+              animate={{ rotate: secondsDegrees, opacity: [0.8, 1, 0.8] }}
+              transition={{ type: 'tween', duration: 0, opacityDuration: 2 }}
             />
 
-            {/* Center dot */}
-            <div className="absolute w-3 h-3 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full shadow-lg" />
+            {/* Center dot with glow */}
+            <motion.div
+              className="absolute w-4 h-4 bg-gradient-to-br from-cosmic-neon to-cosmic-accent rounded-full shadow-[0_0_15px_rgba(6,182,212,0.8)]"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           </div>
 
           {/* Digital time display */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <motion.div
-              className="text-xs font-bold text-blue-300/70 tracking-widest"
+              className="text-xs font-bold text-cosmic-neon/80 tracking-widest drop-shadow-[0_0_6px_rgba(6,182,212,0.4)]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.6 }}
@@ -115,16 +119,16 @@ export function WallClock() {
           </div>
         </div>
 
-        {/* Pulsing ring */}
+        {/* Outer pulsing rings */}
         <motion.div
-          className="absolute inset-0 rounded-full border border-blue-400/30"
-          animate={{ scale: [1, 1.1, 1], opacity: [1, 0.3, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute inset-0 rounded-full border-2 border-cosmic-neon/30 shadow-[0_0_20px_rgba(6,182,212,0.4)]"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.8, 0.3, 0.8] }}
+          transition={{ duration: 3, repeat: Infinity }}
         />
         <motion.div
-          className="absolute inset-2 rounded-full border border-purple-400/20"
-          animate={{ scale: [1.05, 1.15, 1.05], opacity: [0.5, 0.1, 0.5] }}
-          transition={{ duration: 3, repeat: Infinity, delay: 0.3 }}
+          className="absolute inset-3 rounded-full border border-cosmic-accent/20"
+          animate={{ scale: [0.95, 1.2, 0.95], opacity: [0.5, 0.1, 0.5] }}
+          transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
         />
       </div>
     </motion.div>

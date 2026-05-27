@@ -17,7 +17,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="text-center py-12 text-gray-500 dark:text-gray-400"
+        className="text-center py-12 text-gray-400"
       >
         <p>Unable to load profile</p>
       </motion.div>
@@ -28,39 +28,42 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="flex flex-col items-center gap-4"
+      transition={{ duration: 0.8 }}
+      className="flex flex-col items-center gap-6 py-12"
     >
-      {/* Profile Image */}
+      {/* Profile Image with Neon Glow */}
       <motion.div
         className="relative"
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.08 }}
         transition={{ type: 'spring', stiffness: 300 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-lg opacity-60" />
+        {/* Animated neon border */}
+        <div className="absolute inset-0 bg-gradient-to-r from-cosmic-neon via-cosmic-accent to-cosmic-glow rounded-full blur-2xl opacity-60 animate-pulse-glow" />
+        
+        {/* Avatar */}
         <img
-          src={profile.avatar_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'}
+          src={profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=premium'}
           alt={profile.name}
-          className="relative w-24 h-24 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-xl"
+          className="relative w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-cosmic-neon/50 shadow-neon-glow"
         />
       </motion.div>
 
-      {/* Name */}
+      {/* Name - Gradient Text */}
       <motion.h1
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white"
+        className="text-4xl md:text-5xl font-bold text-center gradient-text"
       >
         {profile.name}
       </motion.h1>
 
-      {/* Headline/Bio */}
+      {/* Bio/Headline - Neon Text */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="text-lg md:text-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent text-center"
+        className="text-lg md:text-2xl font-semibold text-cosmic-neon text-center max-w-2xl drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
       >
         {profile.bio}
       </motion.p>
@@ -70,10 +73,23 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-sm md:text-base text-gray-600 dark:text-gray-400 text-center max-w-md"
+        className="text-sm md:text-base text-gray-300 text-center max-w-md leading-relaxed"
       >
         {profile.subtitle}
       </motion.p>
+
+      {/* Availability Badge */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-2"
+      >
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cosmic-surface/50 border border-cosmic-neon/30 backdrop-blur-sm">
+          <div className="w-2 h-2 rounded-full bg-cosmic-neon animate-pulse"></div>
+          <span className="text-sm font-medium text-cosmic-neon">Available for work</span>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }

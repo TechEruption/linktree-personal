@@ -61,21 +61,21 @@ interface SocialIconProps {
 }
 
 function SocialIcon({ link, variants }: SocialIconProps) {
-  const IconComponent = getIconComponent(link.icon);
+  const IconComponent = getIconComponent(link.icon || link.platform);
 
   return (
     <motion.button
       variants={variants}
       whileHover={{
-        scale: 1.2,
-        boxShadow: '0 0 20px rgba(59, 130, 246, 0.6)',
+        scale: 1.25,
+        boxShadow: '0 0 30px rgba(6, 182, 212, 0.8)',
       }}
-      whileTap={{ scale: 0.9 }}
+      whileTap={{ scale: 0.85 }}
       onClick={() => openLink(link.url, true)}
-      className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-blue-400/30 hover:border-blue-400 transition-all duration-300 group"
+      className="w-14 h-14 rounded-full bg-cosmic-surface/60 flex items-center justify-center border border-cosmic-border/50 hover:border-cosmic-neon/70 transition-all duration-300 group backdrop-blur-sm hover:shadow-neon-cyan"
       title={link.platform}
     >
-      <IconComponent className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors" />
+      <IconComponent className="w-6 h-6 text-cosmic-neon group-hover:text-cosmic-accent transition-colors duration-300 drop-shadow-[0_0_6px_rgba(6,182,212,0.4)]" />
     </motion.button>
   );
 }

@@ -11,67 +11,66 @@ export function PublicPage() {
   const { socialLinks, loading: socialLoading } = useSocialLinks();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-slate-950 dark:via-gray-900 dark:to-slate-950">
-      {/* Animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-10 left-10 w-72 h-72 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl"
-          animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-10 right-10 w-72 h-72 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-3xl"
-          animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
-          transition={{ duration: 10, repeat: Infinity }}
-        />
-      </div>
-
-      {/* Main content */}
+    <div className="min-h-screen overflow-x-hidden">
+      {/* Main content with premium layout */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        {/* Spacing for clock */}
-        <div className="hidden lg:block h-32" />
+        {/* Top spacing for clock */}
+        <div className="hidden lg:block h-24" />
 
-        {/* Content wrapper */}
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-12 sm:py-16 md:py-20">
-          {/* Profile section */}
+        {/* Content wrapper - centered */}
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12 md:py-16 lg:py-20 pb-32 lg:pb-16">
+          
+          {/* Profile Hero Section */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             className="w-full max-w-3xl"
           >
             <ProfileCard profile={profile} loading={profileLoading} />
           </motion.div>
 
-          {/* Spacing */}
-          <div className="h-12 sm:h-16 md:h-20" />
+          {/* Spacing between sections */}
+          <div className="h-8 sm:h-12 md:h-16" />
 
-          {/* Links section */}
+          {/* Links Section */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="w-full max-w-2xl px-2 sm:px-0"
           >
             <LinksGrid links={links} loading={linksLoading} />
           </motion.div>
 
-          {/* Spacing */}
-          <div className="h-12 sm:h-16" />
+          {/* Spacing between sections */}
+          <div className="h-8 sm:h-12" />
 
-          {/* Social icons section */}
+          {/* Social Icons Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="w-full flex justify-center"
+          >
+            <SocialIcons socialLinks={socialLinks} loading={socialLoading} />
+          </motion.div>
+
+          {/* Footer CTA */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="w-full"
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="mt-16 text-center"
           >
-            <SocialIcons socialLinks={socialLinks} loading={socialLoading} />
+            <p className="text-sm text-gray-400 hover:text-cosmic-neon transition-colors cursor-pointer">
+              Built with Vercel ⚡
+            </p>
           </motion.div>
         </div>
       </div>
 
-      {/* Wall Clock */}
+      {/* Wall Clock - Premium futuristic widget */}
       <WallClock />
     </div>
   );

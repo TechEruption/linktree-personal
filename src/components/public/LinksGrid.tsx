@@ -75,31 +75,34 @@ function LinkButton({ link, variants }: LinkButtonProps) {
   return (
     <motion.button
       variants={variants}
-      whileHover={{ scale: 1.02, y: -2 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ scale: 1.03, y: -4 }}
+      whileTap={{ scale: 0.97 }}
       onClick={() => openLink(link.url, true)}
-      className="w-full link-button text-left"
+      className="w-full link-button group relative overflow-hidden"
     >
-      <div className="flex items-center gap-4">
-        {/* Icon */}
-        <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center group-hover:from-blue-500/40 group-hover:to-purple-500/40 transition-all duration-300">
-          <IconComponent className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-r from-cosmic-accent/0 to-cosmic-glow/0 group-hover:from-cosmic-accent/10 group-hover:to-cosmic-glow/10 transition-all duration-300" />
+      
+      <div className="relative flex items-center gap-4">
+        {/* Icon Container */}
+        <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-cosmic-surface/60 border border-cosmic-border/50 flex items-center justify-center group-hover:border-cosmic-neon/50 group-hover:shadow-neon-cyan transition-all duration-300 backdrop-blur-sm">
+          <IconComponent className="w-7 h-7 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300" />
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 dark:text-white text-left truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+          <h3 className="font-bold text-gray-100 text-left truncate group-hover:text-cosmic-neon transition-colors duration-300 text-lg">
             {link.title}
           </h3>
           {link.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 text-left truncate">
+            <p className="text-sm text-gray-400 text-left truncate group-hover:text-gray-300 transition-colors">
               {link.description}
             </p>
           )}
         </div>
 
-        {/* Arrow indicator */}
-        <div className="flex-shrink-0 text-gray-400 dark:text-gray-600 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        {/* Arrow indicator with glow */}
+        <div className="flex-shrink-0 text-gray-500 group-hover:text-cosmic-neon transition-all duration-300 drop-shadow-[0_0_4px_rgba(6,182,212,0.3)]">
           <ExternalLink className="w-5 h-5" />
         </div>
       </div>
