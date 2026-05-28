@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ToastProvider } from './components/common/Toast';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
+import { WallClock } from './components/clock/WallClock';
 import { PublicPage } from './pages/PublicPage';
 import { LoginPage } from './pages/LoginPage';
 import { AdminPage } from './pages/AdminPage';
@@ -78,6 +79,9 @@ function App() {
               {/* Fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+
+            {/* Premium cosmic widgets */}
+            <WallClock />
           </ToastProvider>
         </AuthProvider>
       </ThemeProvider>

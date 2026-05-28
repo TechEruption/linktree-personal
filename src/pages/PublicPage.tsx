@@ -2,7 +2,7 @@ import { useProfile, useLinks, useSocialLinks } from '../hooks/useData';
 import { ProfileCard } from '../components/public/ProfileCard';
 import { LinksGrid } from '../components/public/LinksGrid';
 import { SocialIcons } from '../components/public/SocialIcons';
-import { WallClock } from '../components/clock/WallClock';
+import { ContactForm } from '../components/public/ContactForm';
 import { motion } from 'framer-motion';
 
 export function PublicPage() {
@@ -20,6 +20,9 @@ export function PublicPage() {
         {/* Content wrapper - centered */}
         <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12 md:py-16 lg:py-20 pb-32 lg:pb-16">
           
+          {/* Contact Form - Premium */}
+          <ContactForm />
+
           {/* Profile Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -69,9 +72,6 @@ export function PublicPage() {
           </motion.div>
         </div>
       </div>
-
-      {/* Wall Clock - Premium futuristic widget */}
-      <WallClock />
     </div>
   );
 }

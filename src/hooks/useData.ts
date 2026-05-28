@@ -4,12 +4,12 @@ import type { Profile, Link, SocialLink } from '../types';
 
 // Mock data for demo when Supabase is not configured
 const MOCK_PROFILE: Profile = {
-  id: 'demo-user-id',
-  email: 'demo@linktree.app',
-  name: 'Demo User',
-  bio: 'Welcome to Linktree! 🌳 Click login to manage your profile.',
-  subtitle: 'Set up Supabase to see your real data',
-  avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=demo',
+  id: 'soumabha-id',
+  email: 'soumabha015@gmail.com',
+  name: 'Soumabha Mahapatra',
+  bio: 'Welcome To My Universe',
+  subtitle: 'Software Developer & Tech Enthusiast',
+  avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=soumabha',
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
 };
@@ -76,7 +76,7 @@ export function useLinks() {
         const mockLinks: Link[] = [
           {
             id: '1',
-            user_id: 'demo-user-id',
+            user_id: 'soumabha-id',
             title: 'My Portfolio',
             url: 'https://portfolio.example.com',
             description: 'Check out my work',
@@ -88,7 +88,7 @@ export function useLinks() {
           },
           {
             id: '2',
-            user_id: 'demo-user-id',
+            user_id: 'soumabha-id',
             title: 'GitHub',
             url: 'https://github.com',
             description: 'See my code',
@@ -100,7 +100,7 @@ export function useLinks() {
           },
           {
             id: '3',
-            user_id: 'demo-user-id',
+            user_id: 'soumabha-id',
             title: 'Blog',
             url: 'https://blog.example.com',
             description: 'Read my articles',
@@ -130,7 +130,7 @@ export function useLinks() {
       const mockLinks: Link[] = [
         {
           id: '1',
-          user_id: 'demo-user-id',
+          user_id: 'soumabha-id',
           title: 'My Portfolio',
           url: 'https://portfolio.example.com',
           description: 'Check out my work',
@@ -142,7 +142,7 @@ export function useLinks() {
         },
         {
           id: '2',
-          user_id: 'demo-user-id',
+          user_id: 'soumabha-id',
           title: 'GitHub',
           url: 'https://github.com',
           description: 'See my code',
@@ -154,7 +154,7 @@ export function useLinks() {
         },
         {
           id: '3',
-          user_id: 'demo-user-id',
+          user_id: 'soumabha-id',
           title: 'Blog',
           url: 'https://blog.example.com',
           description: 'Read my articles',
@@ -192,7 +192,7 @@ export function useSocialLinks() {
         const mockSocialLinks: SocialLink[] = [
           {
             id: '1',
-            user_id: 'demo-user-id',
+            user_id: 'soumabha-id',
             platform: 'twitter',
             url: 'https://twitter.com/yourhandle',
             order_index: 1,
@@ -201,7 +201,7 @@ export function useSocialLinks() {
           },
           {
             id: '2',
-            user_id: 'demo-user-id',
+            user_id: 'soumabha-id',
             platform: 'linkedin',
             url: 'https://linkedin.com/in/yourprofile',
             order_index: 2,
@@ -210,9 +210,9 @@ export function useSocialLinks() {
           },
           {
             id: '3',
-            user_id: 'demo-user-id',
-            platform: 'instagram',
-            url: 'https://instagram.com/yourhandle',
+            user_id: 'soumabha-id',
+            platform: 'mail',
+            url: 'mailto:soumabha015@gmail.com',
             order_index: 3,
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
@@ -236,7 +236,7 @@ export function useSocialLinks() {
       const mockSocialLinks: SocialLink[] = [
         {
           id: '1',
-          user_id: 'demo-user-id',
+          user_id: 'soumabha-id',
           platform: 'twitter',
           url: 'https://twitter.com/yourhandle',
           order_index: 1,
@@ -245,7 +245,7 @@ export function useSocialLinks() {
         },
         {
           id: '2',
-          user_id: 'demo-user-id',
+          user_id: 'soumabha-id',
           platform: 'linkedin',
           url: 'https://linkedin.com/in/yourprofile',
           order_index: 2,
@@ -254,9 +254,9 @@ export function useSocialLinks() {
         },
         {
           id: '3',
-          user_id: 'demo-user-id',
-          platform: 'instagram',
-          url: 'https://instagram.com/yourhandle',
+          user_id: 'soumabha-id',
+          platform: 'mail',
+          url: 'mailto:soumabha015@gmail.com',
           order_index: 3,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),

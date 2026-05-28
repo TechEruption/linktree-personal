@@ -46,7 +46,7 @@ export function WallClock() {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, type: 'spring' }}
-      className="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 z-50"
+      className="fixed top-6 left-6 lg:top-10 lg:left-10 z-50"
     >
       <div className="relative w-40 h-40 lg:w-56 lg:h-56">
         {/* Outer neon glow */}
