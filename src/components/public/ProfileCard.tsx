@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import type { Profile } from '../../types';
 import { ProfileSkeleton } from '../common/LoadingSkeleton';
 
@@ -8,6 +9,37 @@ interface ProfileCardProps {
 }
 
 export function ProfileCard({ profile, loading }: ProfileCardProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [time, setTime] = useState<{
+    hours: number;
+    minutes: number;
+    seconds: number;
+  }>({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime({
+        hours: now.getHours() % 12 || 12,
+        minutes: now.getMinutes(),
+        seconds: now.getSeconds(),
+      });
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Calculate rotation angles for analog clock
+  const secondsDegrees = (time.seconds / 60) * 360;
+  const minutesDegrees = (time.minutes / 60) * 360 + (time.seconds / 3600) * 360;
+  const hoursDegrees = (time.hours / 12) * 360 + (time.minutes / 720) * 360;
+
   if (loading) {
     return <ProfileSkeleton />;
   }
@@ -29,24 +61,112 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center gap-6 py-12"
+      className="flex flex-col items-center gap-6 py-8"
     >
-      {/* Profile Image with Neon Glow */}
-      <motion.div
-        className="relative"
-        whileHover={{ scale: 1.08 }}
-        transition={{ type: 'spring', stiffness: 300 }}
+      {/* 3D Flip Container */}
+      <div 
+        className="h-40 md:h-48 w-40 md:w-48 cursor-pointer"
+        style={{ perspective: '1200px' }}
+        onMouseEnter={() => setIsFlipped(true)}
+        onMouseLeave={() => setIsFlipped(false)}
       >
-        {/* Animated neon border */}
-        <div className="absolute inset-0 bg-gradient-to-r from-cosmic-neon via-cosmic-accent to-cosmic-glow rounded-full blur-2xl opacity-60 animate-pulse-glow" />
-        
-        {/* Avatar */}
-        <img
-          src={profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=premium'}
-          alt={profile.name}
-          className="relative w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-cosmic-neon/50 shadow-neon-glow"
-        />
-      </motion.div>
+        <motion.div
+          initial={false}
+          animate={{ rotateY: isFlipped ? 180 : 0 }}
+          transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
+          style={{
+            transformStyle: 'preserve-3d',
+          }}
+          className="w-full h-full relative"
+        >
+          {/* Front - Profile Image */}
+          <motion.div
+            style={{ backfaceVisibility: 'hidden' }}
+            className="w-full h-full absolute"
+          >
+            <div className="relative w-full h-full">
+              {/* Animated neon border */}
+              <div className="absolute inset-0 bg-gradient-to-r from-cosmic-neon via-cosmic-accent to-cosmic-glow rounded-full blur-2xl opacity-60 animate-pulse-glow" />
+              
+              {/* Avatar */}
+              <img
+                src={profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=premium'}
+                alt={profile.name}
+                className="relative w-full h-full rounded-full object-cover border-4 border-cosmic-neon/50 shadow-neon-glow"
+              />
+            </div>
+          </motion.div>
+
+          {/* Back - Clock/Watch */}
+          <motion.div
+            style={{ backfaceVisibility: 'hidden', rotateY: 180 }}
+            className="w-full h-full absolute"
+          >
+            <div className="relative w-full h-full">
+              {/* Clock Background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cosmic-neon/40 to-cosmic-accent/30 rounded-full blur-2xl opacity-60" />
+              
+              {/* Main clock container - Glassmorphism */}
+              <div className="relative w-full h-full glass-dark rounded-full flex items-center justify-center shadow-neon-glow border-2 border-cosmic-neon/40 backdrop-blur-xl">
+                {/* Animated gradient background */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cosmic-accent/5 to-cosmic-glow/5 animate-pulse">
+                  {/* Clock markers */}
+                  {[...Array(12)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-1 h-3 bg-cosmic-neon/60 left-1/2 origin-center rounded-full"
+                      style={{
+                        transform: `translateX(-50%) translateY(-${88 - 10}px) rotate(${i * 30}deg)`,
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Analog hands */}
+                <div className="absolute inset-0 rounded-full flex items-center justify-center">
+                  {/* Hour hand */}
+                  <motion.div
+                    className="absolute w-1.5 h-12 md:h-14 bg-gradient-to-b from-cosmic-accent to-cosmic-neon rounded-full origin-bottom shadow-[0_0_10px_rgba(99,102,241,0.8)]"
+                    style={{ bottom: '50%' }}
+                    animate={{ rotate: hoursDegrees }}
+                    transition={{ type: 'tween', duration: 0.5 }}
+                  />
+
+                  {/* Minute hand */}
+                  <motion.div
+                    className="absolute w-1 h-16 md:h-20 bg-gradient-to-b from-cosmic-neon to-cyan-400 rounded-full origin-bottom shadow-[0_0_12px_rgba(6,182,212,0.8)]"
+                    style={{ bottom: '50%' }}
+                    animate={{ rotate: minutesDegrees }}
+                    transition={{ type: 'tween', duration: 0.5 }}
+                  />
+
+                  {/* Second hand - pulsing */}
+                  <motion.div
+                    className="absolute w-0.5 h-14 md:h-16 bg-gradient-to-b from-cosmic-glow to-pink-500 rounded-full origin-bottom shadow-[0_0_8px_rgba(168,85,247,0.6)]"
+                    style={{ bottom: '50%' }}
+                    animate={{ rotate: secondsDegrees, opacity: [0.8, 1, 0.8] }}
+                    transition={{ type: 'tween', duration: 0, opacityDuration: 2 }}
+                  />
+
+                  {/* Center dot with glow */}
+                  <motion.div
+                    className="absolute w-4 h-4 bg-gradient-to-br from-cosmic-neon to-cosmic-accent rounded-full shadow-[0_0_15px_rgba(6,182,212,0.8)]"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </div>
+              </div>
+
+              {/* Outer pulsing ring */}
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-cosmic-neon/30 shadow-[0_0_20px_rgba(6,182,212,0.4)]"
+                animate={{ scale: [1, 1.1, 1], opacity: [0.8, 0.3, 0.8] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
 
       {/* Name - Gradient Text */}
       <motion.h1
@@ -83,7 +203,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5 }}
-        className="mt-2"
+        className="mt-1"
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cosmic-surface/50 border border-cosmic-neon/30 backdrop-blur-sm">
           <div className="w-2 h-2 rounded-full bg-cosmic-neon animate-pulse"></div>

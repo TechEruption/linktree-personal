@@ -71,13 +71,15 @@ interface LinkButtonProps {
 
 function LinkButton({ link, variants }: LinkButtonProps) {
   const IconComponent = link.icon ? getIconComponent(link.icon) : ExternalLink;
+  const isComingSoon = link.description?.includes('Coming Soon');
 
   return (
     <motion.button
       variants={variants}
       whileHover={{ scale: 1.03, y: -4 }}
       whileTap={{ scale: 0.97 }}
-      onClick={() => openLink(link.url, true)}
+      onClick={() => !isComingSoon && openLink(link.url, true)}
+      disabled={isComingSoon}
       className="w-full link-button group relative overflow-hidden"
     >
       {/* Gradient overlay on hover */}

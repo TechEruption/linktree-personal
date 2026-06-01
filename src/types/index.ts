@@ -10,6 +10,7 @@ export interface Profile {
 
 export interface Link {
   id: string;
+  user_id?: string;
   title: string;
   description: string;
   url: string;
@@ -22,9 +23,13 @@ export interface Link {
 
 export interface SocialLink {
   id: string;
+  user_id?: string;
   platform: string;
   url: string;
   icon?: string;
+  order_index?: number;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface AuthUser {

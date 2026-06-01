@@ -180,11 +180,11 @@ export function ContactForm() {
 
             {/* Submit button */}
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(6, 182, 212, 0.8)' }}
               whileTap={{ scale: 0.95 }}
               type="submit"
               disabled={loading}
-              className="w-full mt-6 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-cosmic-neon to-cosmic-accent text-white transition-all duration-300 hover:shadow-neon-cyan disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full mt-6 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-cosmic-neon to-cosmic-accent text-white transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.6)] hover:shadow-[0_0_30px_rgba(6,182,212,0.8)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border-2 border-cosmic-neon/50"
             >
               {loading ? (
                 <>
@@ -200,12 +200,7 @@ export function ContactForm() {
             </motion.button>
           </form>
 
-          {/* Contact info footer */}
-          <div className="mt-6 pt-6 border-t border-cosmic-border/30">
-            <p className="text-xs text-cosmic-neon/70 text-center">
-              📧 Messages will be sent to: soumabha015@gmail.com
-            </p>
-          </div>
+
         </div>
 
         {/* Corner glow accents */}

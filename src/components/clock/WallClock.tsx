@@ -14,6 +14,8 @@ export function WallClock() {
     date: '',
   });
 
+  const [scrollOpacity, setScrollOpacity] = useState(1);
+
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -34,6 +36,22 @@ export function WallClock() {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle scroll to fade clock
+  useEffect(() => {
+    const handleScroll = () => {
+      // Fade out after scrolling 150px down
+      const fadeOutThreshold = 150;
+      const scrollY = window.scrollY;
+      
+      // Calculate opacity: 1 at scroll 0, 0 at scroll 150+
+      const opacity = Math.max(0, 1 - scrollY / fadeOutThreshold);
+      setScrollOpacity(opacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Time values are used for analog clock calculations below
 
   // Calculate rotation angles for analog clock
@@ -44,9 +62,10 @@ export function WallClock() {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
+      animate={{ opacity: scrollOpacity, scale: 1 }}
       transition={{ duration: 0.8, type: 'spring' }}
-      className="fixed top-6 left-6 lg:top-10 lg:left-10 z-50"
+      className="fixed top-6 left-6 lg:top-10 lg:left-10 z-50 pointer-events-none"
+      style={{ opacity: scrollOpacity }}
     >
       <div className="relative w-40 h-40 lg:w-56 lg:h-56">
         {/* Outer neon glow */}

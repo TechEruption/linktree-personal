@@ -11,18 +11,12 @@ export function PublicPage() {
   const { socialLinks, loading: socialLoading } = useSocialLinks();
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden flex flex-col">
       {/* Main content with premium layout */}
-      <div className="relative z-10 flex flex-col min-h-screen">
-        {/* Top spacing for clock */}
-        <div className="hidden lg:block h-24" />
-
+      <div className="relative z-10 flex-1 flex flex-col min-h-screen">
         {/* Content wrapper - centered */}
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12 md:py-16 lg:py-20 pb-32 lg:pb-16">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-4 sm:py-8 md:py-12 lg:py-16">
           
-          {/* Contact Form - Premium */}
-          <ContactForm />
-
           {/* Profile Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -34,9 +28,9 @@ export function PublicPage() {
           </motion.div>
 
           {/* Spacing between sections */}
-          <div className="h-8 sm:h-12 md:h-16" />
+          <div className="h-6 sm:h-8 md:h-10" />
 
-          {/* Links Section */}
+          {/* Links Section - Main Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,7 +41,7 @@ export function PublicPage() {
           </motion.div>
 
           {/* Spacing between sections */}
-          <div className="h-8 sm:h-12" />
+          <div className="h-6 sm:h-8" />
 
           {/* Social Icons Section */}
           <motion.div
@@ -58,20 +52,20 @@ export function PublicPage() {
           >
             <SocialIcons socialLinks={socialLinks} loading={socialLoading} />
           </motion.div>
-
-          {/* Footer CTA */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-16 text-center"
-          >
-            <p className="text-sm text-gray-400 hover:text-cosmic-neon transition-colors cursor-pointer">
-              Built with Vercel ⚡
-            </p>
-          </motion.div>
         </div>
       </div>
+
+      {/* Contact Form Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+        className="relative z-10 w-full bg-gradient-to-b from-cosmic-bg/0 to-cosmic-bg/50 px-4 py-8 sm:py-12 md:py-16"
+      >
+        <div className="max-w-2xl mx-auto">
+          <ContactForm />
+        </div>
+      </motion.div>
     </div>
   );
 }
