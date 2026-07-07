@@ -28,18 +28,20 @@ export function ContactForm() {
     setError('');
 
     try {
-      // Using FormSubmit.co as a free email service
-      const response = await fetch('https://formspree.io/f/xyzgvqnq', {
+      const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formsubmit.co/ajax/soumabha015@gmail.com';
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({
+        body: new URLSearchParams({
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          _to: 'soumabha015@gmail.com',
-        }),
+          _subject: `New message from ${formData.name}`,
+        }).toString(),
       });
 
       if (response.ok) {

@@ -109,7 +109,7 @@ interface FooterLinkItemProps {
 }
 
 function FooterLinkItem({ link, variants }: FooterLinkItemProps) {
-  const IconComponent = link.icon ? getIconComponent(link.icon) : ExternalLink;
+  const IconComponent = link.icon ? getIconComponent(link.icon) : getIconComponent('external');
 
   return (
     <motion.button

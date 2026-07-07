@@ -84,15 +84,15 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
             style={{ backfaceVisibility: 'hidden' }}
             className="w-full h-full absolute"
           >
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-full p-1">
               {/* Animated neon border */}
               <div className="absolute inset-0 bg-gradient-to-r from-cosmic-neon via-cosmic-accent to-cosmic-glow rounded-full blur-2xl opacity-60 animate-pulse-glow" />
               
               {/* Avatar */}
               <img
-                src={profile.avatar_url || 'https://api.dicebear.com/7.x/avataaars/svg?seed=premium'}
+                src={profile.avatar_url || '/profile.jpeg'}
                 alt={profile.name}
-                className="relative w-full h-full rounded-full object-cover border-4 border-cosmic-neon/50 shadow-neon-glow"
+                className="relative w-full h-full rounded-full object-cover border-4 border-cosmic-neon/50 shadow-[0_0_25px_rgba(6,182,212,0.35)] ring-2 ring-white/10"
               />
             </div>
           </motion.div>
@@ -145,7 +145,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
                     className="absolute w-0.5 h-14 md:h-16 bg-gradient-to-b from-cosmic-glow to-pink-500 rounded-full origin-bottom shadow-[0_0_8px_rgba(168,85,247,0.6)]"
                     style={{ bottom: '50%' }}
                     animate={{ rotate: secondsDegrees, opacity: [0.8, 1, 0.8] }}
-                    transition={{ type: 'tween', duration: 0, opacityDuration: 2 }}
+                  transition={{ type: 'tween', duration: 2, repeat: Infinity }}
                   />
 
                   {/* Center dot with glow */}

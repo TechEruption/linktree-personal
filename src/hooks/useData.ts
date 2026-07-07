@@ -9,7 +9,7 @@ const MOCK_PROFILE: Profile = {
   name: 'Soumabha Mahapatra',
   bio: 'Welcome To My Universe',
   subtitle: 'Software Developer & Tech Enthusiast',
-  avatar_url: 'https://api.dicebear.com/7.x/avataaars/svg?seed=soumabha',
+  avatar_url: '/profile.jpeg',
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
 };

@@ -114,7 +114,7 @@ export function WallClock() {
               className="absolute w-0.5 h-16 bg-gradient-to-b from-cosmic-glow to-pink-500 rounded-full origin-bottom shadow-[0_0_8px_rgba(168,85,247,0.6)]"
               style={{ bottom: '50%' }}
               animate={{ rotate: secondsDegrees, opacity: [0.8, 1, 0.8] }}
-              transition={{ type: 'tween', duration: 0, opacityDuration: 2 }}
+              transition={{ type: 'tween', duration: 2, repeat: Infinity }}
             />
 
             {/* Center dot with glow */}
