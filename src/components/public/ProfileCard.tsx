@@ -19,6 +19,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
     minutes: 0,
     seconds: 0,
   });
+  const RESUME_VIEW_URL = 'https://docs.google.com/document/d/YOUR_DOCUMENT_ID/view';
 
   useEffect(() => {
     const updateTime = () => {
@@ -198,17 +199,22 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         {profile.subtitle}
       </motion.p>
 
-      {/* Availability Badge */}
+      {/* Resume Toggle */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="mt-1"
+        className="relative mt-4"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cosmic-surface/50 border border-cosmic-neon/30 backdrop-blur-sm">
-          <div className="w-2 h-2 rounded-full bg-cosmic-neon animate-pulse"></div>
-          <span className="text-sm font-medium text-cosmic-neon">Available for work</span>
-        </div>
+        <a
+          href={RESUME_VIEW_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="relative mx-auto flex h-16 w-[240px] items-center justify-center rounded-full bg-gradient-to-r from-cosmic-neon/15 via-cosmic-accent/15 to-cosmic-neon/15 px-6 text-center text-lg font-semibold text-cosmic-neon shadow-[0_0_30px_rgba(56,189,248,0.18)] transition-transform duration-300 hover:-translate-y-1 hover:bg-cosmic-neon/10"
+        >
+          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-cosmic-neon/35 to-cosmic-accent/10 opacity-70 blur-sm" />
+          <span className="relative z-10">Resume</span>
+        </a>
       </motion.div>
     </motion.div>
   );
