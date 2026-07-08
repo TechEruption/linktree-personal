@@ -70,7 +70,16 @@ interface LinkButtonProps {
 }
 
 function LinkButton({ link, variants }: LinkButtonProps) {
-  const IconComponent = link.icon ? getIconComponent(link.icon) : ExternalLink;
+  // Allow forcing specific image icons when backend doesn't provide URLs
+  const overrideIcons: Record<string, string> = {
+    'my portfolio': 'https://cdn-icons-png.flaticon.com/128/5517/5517030.png',
+    github: 'https://cdn-icons-png.flaticon.com/128/3291/3291695.png',
+    blog: 'https://cdn-icons-png.flaticon.com/128/1187/1187595.png',
+  };
+
+  const titleKey = (link.title || '').toLowerCase().trim();
+  const effectiveIcon = link.icon || overrideIcons[titleKey];
+  const IconComponent = effectiveIcon && !(effectiveIcon.startsWith('http') || effectiveIcon.startsWith('/')) ? getIconComponent(effectiveIcon) : ExternalLink;
   const isComingSoon = link.description?.includes('Coming Soon');
 
   return (
@@ -88,7 +97,11 @@ function LinkButton({ link, variants }: LinkButtonProps) {
       <div className="relative flex items-center gap-4">
         {/* Icon Container */}
         <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-cosmic-surface/60 border border-cosmic-border/50 flex items-center justify-center group-hover:border-cosmic-neon/50 group-hover:shadow-neon-cyan transition-all duration-300 backdrop-blur-sm">
-          <IconComponent className="w-7 h-7 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300" />
+          {effectiveIcon && (effectiveIcon.startsWith('http') || effectiveIcon.startsWith('/')) ? (
+            <img src={effectiveIcon} alt={link.title} className="w-7 h-7 object-contain" />
+          ) : (
+            <IconComponent className="w-7 h-7 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300" />
+          )}
         </div>
 
         {/* Content */}

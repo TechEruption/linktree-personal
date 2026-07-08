@@ -8,7 +8,7 @@ const MOCK_PROFILE: Profile = {
   email: 'soumabha015@gmail.com',
   name: 'Soumabha Mahapatra',
   bio: 'Welcome To My Universe',
-  subtitle: 'Software Developer & Tech Enthusiast',
+  subtitle: 'B.Tech CSE (3rd Year) | Aspiring Technical Product Manager & Data Analyst | C++ • Python • DSA • LeetCode • SQL • Power BI • ETL • Data Science & Machine Learning | SaaS • Blockchain Research',
   avatar_url: '/profile.jpeg',
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
@@ -80,7 +80,7 @@ export function useLinks() {
             title: 'My Portfolio',
             url: '#',
             description: '(Coming Soon)',
-            icon: 'briefcase',
+              icon: 'https://cdn-icons-png.flaticon.com/128/5517/5517030.png',
             active: true,
             order_index: 1,
             created_at: new Date().toISOString(),
@@ -92,7 +92,7 @@ export function useLinks() {
             title: 'GitHub',
             url: 'https://github.com/TechEruption',
             description: 'See my code',
-            icon: 'code',
+              icon: 'https://cdn-icons-png.flaticon.com/128/3291/3291695.png',
             active: true,
             order_index: 2,
             created_at: new Date().toISOString(),
@@ -104,7 +104,7 @@ export function useLinks() {
             title: 'Blog',
             url: 'https://dev.to/techeruption_58',
             description: 'Read my articles',
-            icon: 'edit',
+              icon: 'https://cdn-icons-png.flaticon.com/128/1187/1187595.png',
             active: true,
             order_index: 3,
             created_at: new Date().toISOString(),
@@ -134,7 +134,7 @@ export function useLinks() {
           title: 'My Portfolio',
           url: '#',
           description: '(Coming Soon)',
-          icon: 'briefcase',
+            icon: 'https://cdn-icons-png.flaticon.com/128/5517/5517030.png',
           active: true,
           order_index: 1,
           created_at: new Date().toISOString(),
@@ -146,7 +146,7 @@ export function useLinks() {
           title: 'GitHub',
           url: 'https://github.com/TechEruption',
           description: 'See my code',
-          icon: 'code',
+            icon: 'https://cdn-icons-png.flaticon.com/128/3291/3291695.png',
           active: true,
           order_index: 2,
           created_at: new Date().toISOString(),
@@ -158,7 +158,7 @@ export function useLinks() {
           title: 'Blog',
           url: 'https://dev.to/techeruption_58',
           description: 'Read my articles',
-          icon: 'edit',
+            icon: 'https://cdn-icons-png.flaticon.com/128/1187/1187595.png',
           active: true,
           order_index: 3,
           created_at: new Date().toISOString(),
@@ -188,40 +188,53 @@ export function useSocialLinks() {
     try {
       setLoading(true);
       
-      if (!isSupabaseConfigured()) {
-        const mockSocialLinks: SocialLink[] = [
-          {
-            id: '1',
-            user_id: 'soumabha-id',
-            platform: 'twitter',
-            url: 'https://twitter.com/yourhandle',
-            order_index: 1,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          },
-          {
-            id: '2',
-            user_id: 'soumabha-id',
-            platform: 'linkedin',
-            url: 'https://www.linkedin.com/in/soumabha-mahapatra',
-            order_index: 2,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          },
-          {
-            id: '3',
-            user_id: 'soumabha-id',
-            platform: 'mail',
-            url: 'mailto:soumabha015@gmail.com',
-            order_index: 3,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          },
-        ];
-        setSocialLinks(mockSocialLinks);
-        setError(null);
-        return;
-      }
+          if (!isSupabaseConfigured()) {
+            const mockSocialLinks: SocialLink[] = [
+              {
+                id: '1',
+                user_id: 'soumabha-id',
+                platform: 'twitter',
+                url: 'https://x.com/Soumabha2006',
+                icon: 'https://cdn-icons-png.flaticon.com/128/14417/14417709.png',
+                order_index: 1,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+              {
+                id: '2',
+                user_id: 'soumabha-id',
+                platform: 'linkedin',
+                url: 'https://www.linkedin.com/in/soumabha-mahapatra',
+                icon: 'https://cdn-icons-png.flaticon.com/128/2504/2504923.png',
+                order_index: 2,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+              {
+                id: '3',
+                user_id: 'soumabha-id',
+                platform: 'mail',
+                url: 'mailto:soumabha015@gmail.com',
+                icon: 'https://cdn-icons-png.flaticon.com/128/5968/5968534.png',
+                order_index: 3,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+              {
+                id: '4',
+                user_id: 'soumabha-id',
+                platform: 'instagram',
+                url: 'https://www.instagram.com/hii_soumabha/',
+                icon: 'https://cdn-icons-png.flaticon.com/128/1409/1409946.png',
+                order_index: 4,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              },
+            ];
+            setSocialLinks(mockSocialLinks);
+            setError(null);
+            return;
+          }
 
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.SOCIAL_LINKS)
@@ -238,7 +251,8 @@ export function useSocialLinks() {
           id: '1',
           user_id: 'soumabha-id',
           platform: 'twitter',
-          url: 'https://twitter.com/yourhandle',
+          url: 'https://x.com/Soumabha2006',
+          icon: 'https://cdn-icons-png.flaticon.com/128/14417/14417709.png',
           order_index: 1,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -248,6 +262,7 @@ export function useSocialLinks() {
           user_id: 'soumabha-id',
           platform: 'linkedin',
           url: 'https://www.linkedin.com/in/soumabha-mahapatra',
+          icon: 'https://cdn-icons-png.flaticon.com/128/2504/2504923.png',
           order_index: 2,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -257,7 +272,18 @@ export function useSocialLinks() {
           user_id: 'soumabha-id',
           platform: 'mail',
           url: 'mailto:soumabha015@gmail.com',
+          icon: 'https://cdn-icons-png.flaticon.com/128/5968/5968534.png',
           order_index: 3,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+        {
+          id: '4',
+          user_id: 'soumabha-id',
+          platform: 'instagram',
+          url: 'https://www.instagram.com/hii_soumabha/',
+          icon: 'https://cdn-icons-png.flaticon.com/128/1409/1409946.png',
+          order_index: 4,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         },
