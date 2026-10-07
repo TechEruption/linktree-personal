@@ -40,12 +40,12 @@ export function getInitials(name: string): string {
     .slice(0, 2);
 }
 
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
+export function debounce<TArgs extends unknown[], TResult>(
+  func: (...args: TArgs) => TResult,
   wait: number
-): (...args: Parameters<T>) => void {
+): (...args: TArgs) => void {
   let timeout: ReturnType<typeof setTimeout>;
-  return function executedFunction(...args: Parameters<T>) {
+  return function executedFunction(...args: TArgs) {
     const later = () => {
       clearTimeout(timeout);
       func(...args);

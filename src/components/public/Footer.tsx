@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { createElement } from 'react';
+import { motion, type Variants } from 'framer-motion';
 import type { Link, SocialLink } from '../../types';
 import { getIconComponent } from '../../utils/icons';
 import { openLink } from '../../utils/helpers';
@@ -15,7 +16,7 @@ export function Footer({ links, socialLinks, loading }: FooterProps) {
     return <LinksSkeletonList />;
   }
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -26,7 +27,7 @@ export function Footer({ links, socialLinks, loading }: FooterProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -105,7 +106,7 @@ export function Footer({ links, socialLinks, loading }: FooterProps) {
 
 interface FooterLinkItemProps {
   link: Link;
-  variants: any;
+  variants: Variants;
 }
 
 function FooterLinkItem({ link, variants }: FooterLinkItemProps) {
@@ -125,7 +126,9 @@ function FooterLinkItem({ link, variants }: FooterLinkItemProps) {
       <div className="relative flex items-start gap-3">
         {/* Icon */}
         <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-cosmic-surface/80 border border-cosmic-border/50 flex items-center justify-center group-hover:border-cosmic-neon/50 group-hover:shadow-neon-cyan transition-all duration-300">
-          <IconComponent className="w-5 h-5 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300" />
+          {createElement(IconComponent, {
+            className: 'w-5 h-5 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300',
+          })}
         </div>
 
         {/* Content */}
@@ -162,7 +165,9 @@ function FooterSocialItem({ social }: FooterSocialItemProps) {
       {/* Hover gradient */}
       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cosmic-neon/10 to-cosmic-accent/10 group-hover:from-cosmic-neon/20 group-hover:to-cosmic-accent/20 transition-all duration-300" />
       
-      <IconComponent className="w-6 h-6 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300 relative z-10" />
+      {createElement(IconComponent, {
+        className: 'w-6 h-6 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300 relative z-10',
+      })}
     </motion.button>
   );
 }

@@ -37,7 +37,7 @@ export interface AuthUser {
   id: string;
   email: string;
   aud: string;
-  user_metadata?: Record<string, any>;
+  user_metadata?: Record<string, unknown>;
 }
 
 export interface AuthSession {

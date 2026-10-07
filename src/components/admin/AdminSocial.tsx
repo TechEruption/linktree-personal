@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { supabase, SUPABASE_TABLES } from '../../config/supabase';
 import type { SocialLink } from '../../types';
@@ -17,11 +17,7 @@ export function AdminSocial() {
   });
   const { success, error: showError } = useToast();
 
-  useEffect(() => {
-    fetchSocialLinks();
-  }, []);
-
-  const fetchSocialLinks = async () => {
+  const fetchSocialLinks = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.SOCIAL_LINKS)
@@ -35,7 +31,13 @@ export function AdminSocial() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    // The social links editor intentionally loads its records after mounting.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchSocialLinks();
+  }, [fetchSocialLinks]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

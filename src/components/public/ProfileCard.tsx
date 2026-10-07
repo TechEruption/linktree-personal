@@ -19,7 +19,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
     minutes: 0,
     seconds: 0,
   });
-  const RESUME_VIEW_URL = 'https://docs.google.com/document/d/YOUR_DOCUMENT_ID/view';
+  const RESUME_VIEW_URL = 'https://drive.google.com/file/d/1RmANN8bbLDAKaMc4CYAWYSzqSxUF5iTF/view?usp=sharing';
 
   useEffect(() => {
     const updateTime = () => {
@@ -62,11 +62,11 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="flex flex-col items-center gap-6 py-8"
+      className="flex flex-col items-center gap-4 py-2 sm:py-4"
     >
       {/* 3D Flip Container */}
       <div 
-        className="h-40 md:h-48 w-40 md:w-48 cursor-pointer"
+        className="h-32 w-32 sm:h-40 sm:w-40 md:h-44 md:w-44 cursor-pointer"
         style={{ perspective: '1200px' }}
         onMouseEnter={() => setIsFlipped(true)}
         onMouseLeave={() => setIsFlipped(false)}
@@ -174,7 +174,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-4xl md:text-5xl font-bold text-center gradient-text"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center gradient-text"
       >
         {profile.name}
       </motion.h1>
@@ -184,7 +184,7 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="text-lg md:text-2xl font-semibold text-cosmic-neon text-center max-w-2xl drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
+        className="text-base sm:text-lg md:text-2xl font-semibold text-cosmic-neon text-center max-w-2xl drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
       >
         {profile.bio}
       </motion.p>
@@ -194,12 +194,12 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="text-sm md:text-base text-gray-300 text-center max-w-md leading-relaxed"
+        className="text-xs sm:text-sm md:text-base text-gray-300 text-center max-w-md leading-relaxed"
       >
         {profile.subtitle}
       </motion.p>
 
-      {/* Resume Toggle */}
+      {/* Resume Container */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -209,11 +209,12 @@ export function ProfileCard({ profile, loading }: ProfileCardProps) {
         <a
           href={RESUME_VIEW_URL}
           target="_blank"
-          rel="noreferrer"
-          className="relative mx-auto flex h-16 w-[240px] items-center justify-center rounded-full bg-gradient-to-r from-cosmic-neon/15 via-cosmic-accent/15 to-cosmic-neon/15 px-6 text-center text-lg font-semibold text-cosmic-neon shadow-[0_0_30px_rgba(56,189,248,0.18)] transition-transform duration-300 hover:-translate-y-1 hover:bg-cosmic-neon/10"
+          rel="noopener noreferrer"
+          aria-label="Open my resume in a new tab"
+          className="relative mx-auto flex h-12 w-[200px] items-center justify-center rounded-full border border-cosmic-neon/30 bg-gradient-to-r from-cosmic-neon/10 via-cosmic-accent/10 to-cosmic-neon/10 px-5 text-center text-sm font-semibold tracking-[0.08em] text-cosmic-neon uppercase shadow-[0_0_20px_rgba(56,189,248,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:border-cosmic-neon/50 hover:shadow-[0_0_24px_rgba(56,189,248,0.2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cosmic-neon"
         >
-          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-cosmic-neon/35 to-cosmic-accent/10 opacity-70 blur-sm" />
-          <span className="relative z-10">Resume</span>
+          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-cosmic-neon/20 to-cosmic-accent/10 opacity-80 blur-sm" />
+          <span className="relative z-10">My Resume</span>
         </a>
       </motion.div>
     </motion.div>

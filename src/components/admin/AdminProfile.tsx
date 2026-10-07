@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { supabase, SUPABASE_TABLES } from '../../config/supabase';
 import type { Profile } from '../../types';
@@ -18,11 +18,7 @@ export function AdminProfile() {
   const [avatarPreview, setAvatarPreview] = useState('');
   const { success, error: showError } = useToast();
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.PROFILES)
@@ -45,7 +41,13 @@ export function AdminProfile() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    // The profile editor intentionally fetches its current values after mounting.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchProfile();
+  }, [fetchProfile]);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -153,7 +155,7 @@ export function AdminProfile() {
               <div className="relative">
                 <img
                   src={
-                    avatarPreview || '/profile.jpg'
+                    avatarPreview || '/profile.jpeg'
                   }
                   alt="Avatar preview"
                   className="w-24 h-24 rounded-full object-cover border-4 border-blue-500"

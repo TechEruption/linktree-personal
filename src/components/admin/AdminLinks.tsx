@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { supabase, SUPABASE_TABLES } from '../../config/supabase';
 import type { Link } from '../../types';
@@ -19,11 +19,7 @@ export function AdminLinks() {
   });
   const { success, error: showError } = useToast();
 
-  useEffect(() => {
-    fetchLinks();
-  }, []);
-
-  const fetchLinks = async () => {
+  const fetchLinks = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from(SUPABASE_TABLES.LINKS)
@@ -37,15 +33,24 @@ export function AdminLinks() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showError]);
+
+  useEffect(() => {
+    // The admin component intentionally loads data after mounting.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    void fetchLinks();
+  }, [fetchLinks]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value, type } = e.target as any;
+    const { name, value } = e.target;
+    const nextValue = e.target instanceof HTMLInputElement && e.target.type === 'checkbox'
+      ? e.target.checked
+      : value;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
+      [name]: nextValue,
     }));
   };
 

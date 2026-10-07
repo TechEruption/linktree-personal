@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { createElement } from 'react';
+import { motion, type Variants } from 'framer-motion';
 import type { SocialLink } from '../../types';
 import { SocialIconsSkeleton } from '../common/LoadingSkeleton';
 import { openLink } from '../../utils/helpers';
@@ -18,7 +19,7 @@ export function SocialIcons({ socialLinks, loading }: SocialIconsProps) {
     return null;
   }
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -29,7 +30,7 @@ export function SocialIcons({ socialLinks, loading }: SocialIconsProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, scale: 0 },
     visible: {
       opacity: 1,
@@ -46,7 +47,7 @@ export function SocialIcons({ socialLinks, loading }: SocialIconsProps) {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="flex justify-center gap-6 flex-wrap"
+      className="flex justify-center gap-3 sm:gap-4 flex-wrap"
     >
       {socialLinks.map((link) => (
         <div key={link.id} className="flex flex-col items-center">
@@ -60,7 +61,7 @@ export function SocialIcons({ socialLinks, loading }: SocialIconsProps) {
 
 interface SocialIconProps {
   link: SocialLink;
-  variants: any;
+  variants: Variants;
 }
 
 function SocialIcon({ link, variants }: SocialIconProps) {
@@ -77,16 +78,18 @@ function SocialIcon({ link, variants }: SocialIconProps) {
   return (
     <motion.button
       variants={variants}
-      whileHover={{ scale: 1.12 }}
-      whileTap={{ scale: 0.9 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.96 }}
       onClick={() => openLink(link.url, true)}
-      className="w-14 h-14 rounded-full bg-cosmic-surface/60 flex items-center justify-center border border-cosmic-border/50 hover:border-cosmic-neon/70 transition-all duration-300 group backdrop-blur-sm"
+      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-cosmic-surface/60 flex items-center justify-center border border-cosmic-border/50 hover:border-cosmic-neon/70 transition-all duration-300 group backdrop-blur-sm cursor-pointer"
       title={link.platform}
     >
       {effectiveIcon ? (
-        <img src={effectiveIcon} alt={link.platform} className="w-6 h-6 object-contain rounded" />
+        <img src={effectiveIcon} alt={link.platform} className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded" />
       ) : (
-        <IconComponent className="w-6 h-6 text-cosmic-neon group-hover:text-cosmic-accent transition-colors duration-300 drop-shadow-[0_0_6px_rgba(6,182,212,0.4)]" />
+        createElement(IconComponent, {
+          className: 'w-5 h-5 sm:w-6 sm:h-6 text-cosmic-neon group-hover:text-cosmic-accent transition-colors duration-300 drop-shadow-[0_0_6px_rgba(6,182,212,0.4)]',
+        })
       )}
     </motion.button>
   );

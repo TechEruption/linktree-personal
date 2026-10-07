@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { createElement } from 'react';
+import { motion, type Variants } from 'framer-motion';
 import type { Link } from '../../types';
 import { LinksSkeletonList } from '../common/LoadingSkeleton';
 import { openLink } from '../../utils/helpers';
@@ -38,7 +39,7 @@ export function LinksGrid({ links, loading }: LinksGridProps) {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -55,7 +56,7 @@ export function LinksGrid({ links, loading }: LinksGridProps) {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="w-full max-w-2xl mx-auto space-y-3"
+      className="w-full max-w-2xl mx-auto space-y-2"
     >
       {links.map((link) => (
         <LinkButton key={link.id} link={link} variants={itemVariants} />
@@ -66,7 +67,7 @@ export function LinksGrid({ links, loading }: LinksGridProps) {
 
 interface LinkButtonProps {
   link: Link;
-  variants: any;
+  variants: Variants;
 }
 
 function LinkButton({ link, variants }: LinkButtonProps) {
@@ -85,8 +86,8 @@ function LinkButton({ link, variants }: LinkButtonProps) {
   return (
     <motion.button
       variants={variants}
-      whileHover={{ scale: 1.03, y: -4 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
       onClick={() => !isComingSoon && openLink(link.url, true)}
       disabled={isComingSoon}
       className="w-full link-button group relative overflow-hidden"
@@ -96,21 +97,23 @@ function LinkButton({ link, variants }: LinkButtonProps) {
       
       <div className="relative flex items-center gap-4">
         {/* Icon Container */}
-        <div className="flex-shrink-0 w-14 h-14 rounded-lg bg-cosmic-surface/60 border border-cosmic-border/50 flex items-center justify-center group-hover:border-cosmic-neon/50 group-hover:shadow-neon-cyan transition-all duration-300 backdrop-blur-sm">
+        <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-cosmic-surface/60 border border-cosmic-border/50 flex items-center justify-center group-hover:border-cosmic-neon/50 group-hover:shadow-neon-cyan transition-all duration-300 backdrop-blur-sm">
           {effectiveIcon && (effectiveIcon.startsWith('http') || effectiveIcon.startsWith('/')) ? (
-            <img src={effectiveIcon} alt={link.title} className="w-7 h-7 object-contain" />
+            <img src={effectiveIcon} alt={link.title} className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
           ) : (
-            <IconComponent className="w-7 h-7 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300" />
+            createElement(IconComponent, {
+              className: 'w-6 h-6 sm:w-7 sm:h-7 text-cosmic-neon group-hover:text-cosmic-glow transition-colors duration-300',
+            })
           )}
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-gray-100 text-left truncate group-hover:text-cosmic-neon transition-colors duration-300 text-lg">
+          <h3 className="font-bold text-gray-100 text-left truncate group-hover:text-cosmic-neon transition-colors duration-300 text-base sm:text-lg">
             {link.title}
           </h3>
           {link.description && (
-            <p className="text-sm text-gray-400 text-left truncate group-hover:text-gray-300 transition-colors">
+            <p className="text-xs sm:text-sm text-gray-400 text-left truncate group-hover:text-gray-300 transition-colors">
               {link.description}
             </p>
           )}

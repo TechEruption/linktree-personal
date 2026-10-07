@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/immutability */
 import { useState, useEffect } from 'react';
 import { supabase, SUPABASE_TABLES } from '../config/supabase';
+import type { User } from '@supabase/supabase-js';
 import type { Profile, Link, SocialLink } from '../types';
 
 // Mock data for demo when Supabase is not configured
@@ -8,7 +10,7 @@ const MOCK_PROFILE: Profile = {
   email: 'soumabha015@gmail.com',
   name: 'Soumabha Mahapatra',
   bio: 'Welcome To My Universe',
-  subtitle: 'B.Tech CSE (3rd Year) | Aspiring Technical Product Manager & Data Analyst | C++ • Python • DSA • LeetCode • SQL • Power BI • ETL • Data Science & Machine Learning | SaaS • Blockchain Research',
+  subtitle: 'B.Tech CSE (3rd Year) | Aspiring Technical Product Manager & Data Analyst | C++ • Python • DSA • LeetCode • SQL • Power BI • ETL • Data Science & Machine Learning | SaaS • Blockchain Research | Digital Marketing | SEO',
   avatar_url: '/profile.jpeg',
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
@@ -47,7 +49,7 @@ export function useProfile() {
       if (error) throw error;
       setProfile(data);
       setError(null);
-    } catch (err) {
+    } catch {
       // Fall back to mock data on error
       setProfile(MOCK_PROFILE);
       setError(null);
@@ -125,7 +127,7 @@ export function useLinks() {
       if (error) throw error;
       setLinks(data || []);
       setError(null);
-    } catch (err) {
+    } catch {
       // Fall back to mock data on error
       const mockLinks: Link[] = [
         {
@@ -244,7 +246,7 @@ export function useSocialLinks() {
       if (error) throw error;
       setSocialLinks(data || []);
       setError(null);
-    } catch (err) {
+    } catch {
       // Fall back to mock data on error
       const mockSocialLinks: SocialLink[] = [
         {
@@ -300,7 +302,7 @@ export function useSocialLinks() {
 
 export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

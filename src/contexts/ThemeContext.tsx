@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Theme = 'light' | 'dark';
@@ -10,32 +11,27 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-
-  useEffect(() => {
-    // Get theme from localStorage or system preference
+  const [theme, setTheme] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    setTheme(initialTheme);
-    applyTheme(initialTheme);
-  }, []);
+    return savedTheme === 'dark' || savedTheme === 'light'
+      ? savedTheme
+      : prefersDark ? 'dark' : 'light';
+  });
 
-  const applyTheme = (newTheme: Theme) => {
+  useEffect(() => {
     const root = document.documentElement;
-    if (newTheme === 'dark') {
+    if (theme === 'dark') {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    localStorage.setItem('theme', newTheme);
-  };
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    applyTheme(newTheme);
+    setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark');
   };
 
   return (

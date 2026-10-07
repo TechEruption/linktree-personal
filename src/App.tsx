@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ToastProvider } from './components/common/Toast';
@@ -10,17 +10,13 @@ import { AdminPage } from './pages/AdminPage';
 import './styles/globals.css';
 
 function CosmicBackground() {
-  const [stars, setStars] = useState<Array<{ x: number; y: number; size: number }>>([]);
-
-  useEffect(() => {
-    // Generate random stars
-    const generatedStars = Array.from({ length: 100 }, () => ({
+  const [stars] = useState(() =>
+    Array.from({ length: 100 }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,
       size: Math.random() * 2 + 0.5,
-    }));
-    setStars(generatedStars);
-  }, []);
+    }))
+  );
 
   return (
     <>
